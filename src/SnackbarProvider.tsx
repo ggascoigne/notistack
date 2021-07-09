@@ -50,6 +50,7 @@ class SnackbarProvider extends Component<SnackbarProviderProps, State> {
         const {
             key,
             preventDuplicate,
+            updateDuplicate,
             ...options
         } = opts;
 
@@ -74,6 +75,23 @@ class SnackbarProvider extends Component<SnackbarProviderProps, State> {
         }
 
         this.setState((state) => {
+            if (((updateDuplicate === undefined && this.props.updateDuplicate) || updateDuplicate) && hasSpecifiedKey) {
+                const compareFunction = (item: Snack): boolean => (item.key === key);
+                const updateSnack = (item: Snack) => (
+                    item.key === key
+                        ? { ...snack, open: item.open, entered: item.entered, requestClose: item.requestClose }
+                        : item);
+                const inQueue = state.queue.findIndex(compareFunction) > -1;
+                const inView = state.snacks.findIndex(compareFunction) > -1;
+                if (inQueue || inView) {
+                    return ({
+                        ...state,
+                        snacks: state.snacks.map(updateSnack),
+                        queue: state.queue.map(updateSnack),
+                    });
+                }
+            }
+
             if ((preventDuplicate === undefined && this.props.preventDuplicate) || preventDuplicate) {
                 const compareFunction = (item: Snack): boolean => (
                     hasSpecifiedKey ? item.key === key : item.message === message

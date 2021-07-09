@@ -185,6 +185,11 @@ export interface SharedProps extends Omit<SnackbarProps, 'classes'>, Partial<Tra
      */
     preventDuplicate?: boolean;
     /**
+     * update an existing item if they share the same key
+     * @default false
+     */
+    updateDuplicate?: boolean;
+    /**
      * Replace the snackbar. Callback used for displaying entirely customized snackbar.
      * @param {string|number} key key of a snackbar
      */

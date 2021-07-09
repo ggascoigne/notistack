@@ -12,16 +12,20 @@ const App = () => {
     const dispatch = useDispatch();
     const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
     const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
+    const [index, setIndex] = React.useState(0)
 
     const handleClick = () => {
         // NOTE:
         // if you want to be able to dispatch a `closeSnackbar` action later on,
         // you SHOULD pass your own `key` in the options. `key` can be any sequence
-        // of number or characters, but it has to be unique for a given snackbar.
+        // of numbers or characters, but it has to be unique for a given snackbar.
+        const key = new Date().getTime() + Math.random();
         enqueueSnackbar({
-            message: 'Failed fetching data.',
+            message: `Failed fetching data ${key}.`,
             options: {
-                key: new Date().getTime() + Math.random(),
+                // autoHideDuration: null,
+                anchorOrigin: { vertical: 'top', horizontal: 'right' },
+                key,
                 variant: 'warning',
                 action: key => (
                     <Button onClick={() => closeSnackbar(key)}>dismiss me</Button>
@@ -30,7 +34,27 @@ const App = () => {
         });
     };
 
-    const handleDimissAll = () => {
+    const handleSequence = () => {
+        setIndex((i) => i+1)
+        // NOTE:
+        // if you want to be able to dispatch a `closeSnackbar` action later on,
+        // you SHOULD pass your own `key` in the options. `key` can be any sequence
+        // of numbers or characters, but it has to be unique for a given snackbar.
+        enqueueSnackbar({
+            message: `Sequence ${index}`,
+            options: {
+                anchorOrigin: { vertical: 'top', horizontal: 'right' },
+                key: 'sequence',
+                variant: 'warning',
+                updateDuplicate: true,
+                action: key => (
+                    <Button onClick={() => closeSnackbar(key)}>dismiss me</Button>
+                ),
+            },
+        });
+    };
+
+    const handleDismissAll = () => {
         closeSnackbar();
     };
 
@@ -40,7 +64,8 @@ const App = () => {
             <Typography variant="h4" gutterBottom>Notistack redux example</Typography>
 
             <Button variant="contained" onClick={handleClick}>Display snackbar</Button>
-            <Button variant="contained" onClick={handleDimissAll}>Dismiss all snackbars</Button>
+            <Button variant="contained" onClick={handleSequence}>Display sequential snackbar</Button>
+            <Button variant="contained" onClick={handleDismissAll}>Dismiss all snackbars</Button>
         </Fragment>
     );
 };

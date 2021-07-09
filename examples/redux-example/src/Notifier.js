@@ -26,12 +26,10 @@ const Notifier = () => {
                 return;
             }
 
-            // do nothing if snackbar is already displayed
-            if (displayed.includes(key)) return;
-
             // display snackbar using notistack
             enqueueSnackbar(message, {
                 key,
+                preventDuplicate: true,
                 ...options,
                 onClose: (event, reason, myKey) => {
                     if (options.onClose) {
