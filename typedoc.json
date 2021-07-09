@@ -2310,7 +2310,7 @@
 						"isOptional": true
 					},
 					"comment": {
-						"shortText": "Ignores displaying multiple snackbars with the same `message`",
+						"shortText": "Ignores displaying multiple snackbars with the same `message` or key",
 						"tags": [
 							{
 								"tag": "default",
@@ -2724,7 +2724,7 @@
 						"isOptional": true
 					},
 					"comment": {
-						"shortText": "Ignores displaying multiple snackbars with the same `message`",
+						"shortText": "Ignores displaying multiple snackbars with the same `message` or key",
 						"tags": [
 							{
 								"tag": "default",
@@ -4229,7 +4229,7 @@
 						"isOptional": true
 					},
 					"comment": {
-						"shortText": "Ignores displaying multiple snackbars with the same `message`",
+						"shortText": "Ignores displaying multiple snackbars with the same `message` or key",
 						"tags": [
 							{
 								"tag": "default",

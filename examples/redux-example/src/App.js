@@ -12,7 +12,7 @@ const App = () => {
     const dispatch = useDispatch();
     const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
     const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
-    const [index, setIndex] = React.useState(0)
+    const [index, setIndex] = React.useState(0);
 
     const handleClick = () => {
         // NOTE:
@@ -27,7 +27,7 @@ const App = () => {
                 anchorOrigin: { vertical: 'top', horizontal: 'right' },
                 key,
                 variant: 'warning',
-                action: key => (
+                action: () => (
                     <Button onClick={() => closeSnackbar(key)}>dismiss me</Button>
                 ),
             },
@@ -35,7 +35,7 @@ const App = () => {
     };
 
     const handleSequence = () => {
-        setIndex((i) => i+1)
+        setIndex((i) => i + 1);
         // NOTE:
         // if you want to be able to dispatch a `closeSnackbar` action later on,
         // you SHOULD pass your own `key` in the options. `key` can be any sequence
@@ -47,7 +47,7 @@ const App = () => {
                 key: 'sequence',
                 variant: 'warning',
                 updateDuplicate: true,
-                action: key => (
+                action: (key) => (
                     <Button onClick={() => closeSnackbar(key)}>dismiss me</Button>
                 ),
             },
@@ -59,14 +59,14 @@ const App = () => {
     };
 
     return (
-        <Fragment>
+        <>
             <Notifier />
             <Typography variant="h4" gutterBottom>Notistack redux example</Typography>
 
             <Button variant="contained" onClick={handleClick}>Display snackbar</Button>
             <Button variant="contained" onClick={handleSequence}>Display sequential snackbar</Button>
             <Button variant="contained" onClick={handleDismissAll}>Dismiss all snackbars</Button>
-        </Fragment>
+        </>
     );
 };
 

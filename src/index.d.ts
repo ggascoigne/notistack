@@ -180,7 +180,7 @@ export interface SharedProps extends Omit<SnackbarProps, 'classes'>, Partial<Tra
      */
     variant?: VariantType;
     /**
-     * Ignores displaying multiple snackbars with the same `message`
+     * Ignores displaying multiple snackbars with the same `message` or key
      * @default false
      */
     preventDuplicate?: boolean;

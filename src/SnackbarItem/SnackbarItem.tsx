@@ -4,7 +4,7 @@ import { withStyles, WithStyles, createStyles, Theme, emphasize } from '@materia
 import Collapse from '@material-ui/core/Collapse';
 import SnackbarContent from '../SnackbarContent';
 import { getTransitionDirection } from './SnackbarItem.util';
-import { allClasses, REASONS, objectMerge, DEFAULTS, transformer } from '../utils/constants';
+import { allClasses, REASONS, objectMerge, DEFAULTS, transformer, SNACKBAR_INDENTS } from '../utils/constants';
 import { SharedProps, RequiredBy, TransitionHandlerProps, SnackbarProviderProps as ProviderProps } from '../index';
 import defaultIconVariants from '../utils/defaultIconVariants';
 import createChainedFunction from '../utils/createChainedFunction';
@@ -65,12 +65,22 @@ const styles = (theme: Theme) => {
             bottom: 0,
             left: 0,
         },
+        collapseContainer: {
+            pointerEvents: 'all',
+        },
+        collapseWrapper: {
+            padding: `${SNACKBAR_INDENTS.snackbar.default}px 0px`,
+            transition: 'padding 300ms ease 0ms',
+        },
+        collapseWrapperDense: {
+            padding: `${SNACKBAR_INDENTS.snackbar.dense}px 0px`,
+        },
     });
 }
 
 
 type RemovedProps =
-    | 'variant' // the one received from Provider is processed and passed to snack prop 
+    | 'variant' // the one received from Provider is processed and passed to snack prop
     | 'anchorOrigin' // same as above
     | 'autoHideDuration' // same as above
     | 'preventDuplicate' // the one recevied from enqueueSnackbar is processed in provider, therefore shouldn't be passed to SnackbarItem */
@@ -194,6 +204,10 @@ const SnackbarItem: React.FC<SnackbarItemProps> = ({ classes, ...props }) => {
             timeout={175}
             in={collapsed}
             onExited={callbacks.onExited}
+            classes={{
+                wrapper: clsx(classes.collapseWrapper, { [classes.collapseWrapperDense]: dense }),
+                root: classes.collapseContainer,
+            }}
         >
             {/* @ts-ignore */}
             <Snackbar

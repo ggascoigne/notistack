@@ -21,7 +21,7 @@ export default (state = defaultState, action) => {
         case CLOSE_SNACKBAR:
             return {
                 ...state,
-                notifications: state.notifications.map(notification => (
+                notifications: state.notifications.map((notification) => (
                     (action.dismissAll || notification.key === action.key)
                         ? { ...notification, dismissed: true }
                         : { ...notification }
@@ -32,7 +32,7 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 notifications: state.notifications.filter(
-                    notification => notification.key !== action.key,
+                    (notification) => notification.key !== action.key,
                 ),
             };
 

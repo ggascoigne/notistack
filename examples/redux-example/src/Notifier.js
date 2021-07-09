@@ -7,7 +7,7 @@ let displayed = [];
 
 const Notifier = () => {
     const dispatch = useDispatch();
-    const notifications = useSelector(store => store.app.notifications || []);
+    const notifications = useSelector((store) => store.app.notifications || []);
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     const storeDisplayed = (id) => {
@@ -15,7 +15,7 @@ const Notifier = () => {
     };
 
     const removeDisplayed = (id) => {
-        displayed = [...displayed.filter(key => id !== key)];
+        displayed = [...displayed.filter((key) => id !== key)];
     };
 
     React.useEffect(() => {
